@@ -49,10 +49,24 @@ describe Bookmarks do
       bookmark = Bookmarks.create(url: "http://www.makersacademy.com", title: "Makers Academy")
       bookmarks = Bookmarks.list
 
-      Bookmarks.update(id: bookmark.id, title: 'Academy Makers')
+      Bookmarks.update(id: bookmark.id, title: 'Academy Makers', url: 'http://www.academymakers.com')
       updated_bookmarks = Bookmarks.list
 
       expect(updated_bookmarks[0].title).to eq('Academy Makers')
+      expect(updated_bookmarks[0].url).to eq('http://www.academymakers.com')
+    end
+  end
+
+  describe '.find' do
+    it 'returns the requested bookmark object' do
+      bookmark = Bookmarks.create(title: 'Makers Academy', url: 'http://www.makersacademy.com')
+
+      result = Bookmarks.find(id: bookmark.id)
+
+      expect(result).to be_a Bookmarks
+      expect(result.id).to eq bookmark.id
+      expect(result.title).to eq 'Makers Academy'
+      expect(result.url).to eq 'http://www.makersacademy.com'
     end
   end
   

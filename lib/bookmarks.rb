@@ -31,11 +31,19 @@ class Bookmarks
     connection.exec("DELETE FROM bookmarks WHERE id = #{id}")
   end
 
-  def self.update(id:,title:)
+  def self.update(id:,title:, url:)
     connection = connect()
 
-    connection.exec("UPDATE bookmarks SET title = '#{title}' WHERE id = #{id};")
+    connection.exec("UPDATE bookmarks SET title = '#{title}', url = '#{url}' WHERE id = #{id};")
   end
+
+  def self.find(id:)
+    connection = connect()
+
+    result = connection.exec("SELECT * FROM bookmarks WHERE id = #{id};")
+    Bookmarks.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
 
   def self.connect
     if ENV['ENVIRONMENT'] == 'test'
