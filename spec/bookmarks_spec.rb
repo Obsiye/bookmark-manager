@@ -44,4 +44,17 @@ describe Bookmarks do
     end
   end
 
+  describe '.update' do
+    it 'updates a bookmark' do
+      bookmark = Bookmarks.create(url: "http://www.makersacademy.com", title: "Makers Academy")
+      bookmarks = Bookmarks.list
+
+      Bookmarks.update(id: bookmark.id, title: 'Academy Makers')
+      updated_bookmarks = Bookmarks.list
+
+      expect(updated_bookmarks[0].title).to eq('Academy Makers')
+    end
+  end
+  
+
 end
