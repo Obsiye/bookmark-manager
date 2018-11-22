@@ -9,7 +9,7 @@ feature 'update bookmark' do
 
         fill_in('url', with: 'http://www.academymakers.com')
         fill_in('title', with: 'Academy Makers')
-        click_button('Submit')
+        click_button('Update')
 
         expect(current_path).to eq('/bookmarks')
         expect(page).not_to have_content('Makers Academy')
